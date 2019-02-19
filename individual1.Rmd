@@ -1,0 +1,23 @@
+---
+title: "individual1.Rmd"
+author: "xiwang"
+date: "02/19/19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Open file
+```{r}
+data(happy, package="productplots")
+head(happy)
+```
+
+## 
+```{r}
+data(happy, package="productplots")
+head(happy)
+```
+
