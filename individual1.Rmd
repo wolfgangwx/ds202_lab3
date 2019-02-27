@@ -16,7 +16,7 @@ dim (HAPPY)
 ```
 
 #Data Cleaning
-## Data clean 1: replace missing value "IAP, "DK and "NA to "NA"
+## Data clean 1: replace missing value "IAP, "DK" and "NA" to NA
 
 ```{r}
 HAPPY[is.na(HAPPY)] <- NA
@@ -53,14 +53,14 @@ dim (HAPPY)
 
 # Explore the dataset
 library (ggplot2)
-# Check the distribution of variable: HAPPY
-ggplot (HAPPY, aes(x=HAPPY, fill= HAPPY)) + geom_bar()  
+# Check the distribution of variable: HAPPY based on age
+ggplot (HAPPY, aes(x=HAPPY, fill= HAPPY)) + geom_bar() + facet_grid(~SEX, scales="free_y") 
 
 # Check the distribution of variable: AGE
-ggplot (HAPPY, aes(x=AGE)) + geom_histogram (position = "stack" , binwidth = .5)
+ggplot (HAPPY, aes(x=AGE, color= "red")) + geom_histogram (position = "stack" , binwidth = .5)
 
 # Check the distribution of variable HEALTH: 
-ggplot (HAPPY, aes(x=HEALTH, fill=HEALTH)) + geom_bar() 
+ggplot (HAPPY, aes(x=HEALTH, fill=HEALTH)) + geom_bar() + theme_dark(base_size = 11, base_family = "")
 
 ```
 
@@ -71,7 +71,7 @@ ggplot (HAPPY, aes(x=HEALTH, fill=HEALTH)) + geom_bar()
 library(ggmosaic)
 head (HAPPY)
 # Relationship between HAPPY to AGE
-ggplot (HAPPY, aes(x=HAPPY, y=AGE)) + geom_boxplot()
+ggplot (HAPPY, aes(x=HAPPY, y=AGE)) + geom_boxplot(size=1)
 
 # Relationship between HAPPY to MARITAL
 ggplot(data = HAPPY)  + 
