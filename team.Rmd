@@ -1,0 +1,107 @@
+---
+title: "team.Rmd"
+author: "team"
+date: "02/28/19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Open file
+```{r}
+HAPPY <- readRDS("HAPPY.rds")
+dim (HAPPY)
+```
+
+#Data Cleaning
+## Data clean 1: replace missing value "IAP, "DK" and "NA" to NA
+
+```{r}
+HAPPY[is.na(HAPPY)] <- NA
+HAPPY[HAPPY == "NA"] <- NA
+HAPPY[HAPPY == "IAP"] <- NA
+HAPPY[HAPPY == "DK"] <- NA
+```
+
+## Data clean 2: Check the type of the variable and cast into the right type 
+##### After the data clean, the AGE variable shows as numeric.
+
+```{r}
+HAPPY$AGE[HAPPY$AGE == "89 OR OLDER"] <- 89
+HAPPY$AGE <- as.numeric (HAPPY$AGE)
+is.numeric (HAPPY$AGE)
+str (HAPPY)
+```
+
+## Data clean 3: Bring all levels of factors into a sensible order based on MARITAL and AGE
+
+```{r}
+HAPPY <- HAPPY[order(HAPPY$MARITAL, HAPPY$AGE),]
+head (HAPPY, 20)
+```
+
+#Data Exploration
+
+## Data Eploration 1: Investigate the distributions of 2 different variables.
+
+```{r}
+# Remove missing value in the data frame
+HAPPY <- na.omit (HAPPY)
+dim (HAPPY)
+
+# Explore the dataset
+library (ggplot2)
+# Check the distribution of variable: HAPPY based on age
+ggplot (HAPPY, aes(x=HAPPY, fill= HAPPY)) + geom_bar() + facet_grid(~SEX, scales="free_y") 
+
+# Check the distribution of variable: AGE
+ggplot (HAPPY, aes(x=AGE, color= "red")) + geom_histogram (position = "stack" , binwidth = .5)
+
+# Check the distribution of variable HEALTH: 
+ggplot (HAPPY, aes(x=HEALTH, fill=HEALTH)) + geom_bar() + theme_dark(base_size = 11, base_family = "")
+
+```
+
+
+## Data Eploration 2: Investigate the relationship between happiness and three other variables in the data.
+
+```{r}
+library(ggmosaic)
+head (HAPPY)
+# Relationship between HAPPY to AGE
+ggplot (HAPPY, aes(x=HAPPY, y=AGE)) + geom_boxplot(size=1)
+
+# Relationship between HAPPY to MARITAL
+ggplot(data = HAPPY)  + 
+  geom_mosaic(aes(x = product(HAPPY), fill=MARITAL))  + ylab ("MARITAL") + xlab ("HAPPY") + coord_flip()
+
+# Relationship between HAPPY to HEALTH
+ggplot(data = HAPPY)  + 
+  geom_mosaic(aes(x = product(HAPPY), fill=HEALTH)) + ylab ("HEALTH") + xlab ("HAPPY") + coord_flip()
+  
+# Relationship between HAPPY to WTSSALL
+ggplot(HAPPY, aes(x=HAPPY,y=WTSSALL)) + geom_boxplot()
+
+# Relationship between HAPPY to DEGREE
+ggplot(data = HAPPY)+geom_mosaic(aes(x=product(HAPPY),fill=DEGREE))
+
+```
+
+
+## Data Eploration 3: What do you learn from the data set? Write one or two paragraphs to describe.
+
+##### 1. First, there are so many missing value in this dataset, after cleaning it, almost half of the data were removed.
+##### 2. In terms of the variable HAPPY, there are more people reported they are in Pretty happy and Very happy conditions.
+##### 3. There is a right skewed distribution of participant AGE in this dataset.
+##### 4. In terms of the variable HEALTH, there are more people reported they are in Excellent and Good conditions.
+##### 5. From the boxplot, there is no significant difference can bd identified between the AGE and HAPPY.
+##### 6. There are more participants are in a Married status, and those people are have higher percentages in both Very Happy and Pretty Happy conditions.
+##### 7. Both Divorced and Widowed particpants showed a large percentages of Not too Happy than other people.
+##### 8. Participants in a very Excellent health contion shows a larger percent of Very Happy than other groups, while participants in a Poor health contion shows a larger percentage of Not too Happy than other groups.
+
+
+
+
+
