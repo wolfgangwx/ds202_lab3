@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-
 HAPPY <- readRDS("HAPPY.rds")
 head(HAPPY)
 View(HAPPY)
@@ -51,19 +50,11 @@ ggplot(HAPPY,aes(x=HAPPY,fill=HAPPY,color=HEALTH))+geom_bar(fill="gray",width=0.
 ```{r}
 library(ggmosaic)
 ggplot(data = HAPPY)+geom_mosaic(aes(x=product(HAPPY),fill=MARITAL))
-ggplot(HAPPY,aes(x=HAPPY,y=WTSSALL))+geom_point()
-ggplot(HAPPY,aes(x=HAPPY,y=as.numeric(AGE)))+geom_boxplot()+coord_flip()
+ggplot(HAPPY,aes(x=HAPPY,y=WTSSALL,color= SEX))+geom_point()
+ggplot(HAPPY,aes(x=HAPPY,y=as.numeric(AGE),color=SEX))+geom_boxplot()+coord_flip()
 ggplot(data = HAPPY)+geom_mosaic(aes(x=product(HAPPY),fill=DEGREE))
 ```
 
 ## Data Eploration 3: What do you learn from the data set? Write one or two paragraphs to describe.
 
-##### 1. First, there are so many missing value in this dataset, after cleaning it, almost half of the data were removed.
-##### 2. In terms of the variable HAPPY, there are more people reported they are in Pretty happy and Very happy conditions.
-##### 3. There is a right skewed distribution of participant AGE in this dataset.
-##### 4. In terms of the variable HEALTH, there are more people reported they are in Excellent and Good conditions.
-##### 5. From the boxplot, there is no significant difference can bd identified between the AGE and HAPPY.
-##### 6. There are more participants are in a Married status, and those people are have higher percentages in both Very Happy and Pretty Happy conditions.
-##### 7. Both Divorced and Widowed particpants showed a large percentages of Not too Happy than other people.
-##### 8. Participants in a very Excellent health contion shows a larger percent of Very Happy than other groups, while participants in a Poor health contion shows a larger percentage of Not too Happy than other groups.
-
+##### by graphing the relation between each vairabel, we could say that people who haver better health will have more happiness, and people who married will be more happy about their life. half of 40-ish people is happy and half is not happy(EXPECIALLY 40-IHS WOMAN IS NOT HAPPY). and peopel who have highschool or higher degree will be more happier.
